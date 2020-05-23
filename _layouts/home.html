@@ -1,0 +1,14 @@
+---
+layout: default
+---
+
+<p>Hi! I'm Dominic. Welcome to my blog.</p>
+
+<h3>Recent posts:</h3>
+<ul>
+  {% for post in site.posts %}
+    <li>
+      {{ post.date | date_to_long_string }} &mdash; <a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  {% endfor %}
+</ul>

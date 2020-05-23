@@ -1,0 +1,81 @@
+$title-font: 'Montserrat', 'Roboto', sans-serif;
+$text-font: 'Roboto', sans-serif;
+
+body {
+	font-family: $text-font;
+	line-height: 1.25;
+}
+
+header #title {
+  font-family: $title-font; 
+  font-size: 44px;
+	font-variant: small-caps;
+	font-weight: 300;
+}
+
+header nav a {
+  font-family: $title-font; 
+  font-size: 18px;
+	font-weight: 300;
+}
+
+h1 {
+	font-size: 1.7em
+}
+
+h2,
+section h1 {
+	font-size: 1.5em
+}
+
+h3,
+section h2,
+section section h1 {
+	font-size: 1.3em
+}
+
+h4,
+section h3,
+section section h2,
+section section section h1 {
+	font-size: 1em
+}
+
+h5,
+section h4,
+section section h3 {
+	font-size: .9em
+}
+
+h6,
+section h5,
+section section h4,
+section section section h3 {
+	font-size: .8em
+}
+
+pre {
+  font-family: 'Roboto Mono', monospace;
+	font-size: 13px;
+}
+
+article h1,
+article h2,
+article h3,
+article h4,
+article h5,
+article h6 {
+	font-family: $title-font;
+	font-weight: 600;
+	line-height: 1.15em;
+	margin-bottom: .5em;
+}
+
+article h1:not(:first-child),
+article h2:not(:first-child),
+article h3:not(:first-child),
+article h4:not(:first-child),
+article h5:not(:first-child),
+article h6:not(:first-child) {
+	margin-top: 1.2em;
+}
