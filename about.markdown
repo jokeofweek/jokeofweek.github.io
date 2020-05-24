@@ -16,9 +16,7 @@ As a child, I was digging through my parents' bookshelf before a roadtrip and fo
 
 Throughout high school and university, web development as well as game development were my main interests. I spent years fiddling with an open-source MMORPG engine and building web sites about agmes I liked. Thankfully no screenshots exist, as my design skills were non-existant. I loved the accessibility of the Internet - my applications could work on any computer without needing any installation.
 
-Eventually, this led me to the world of freelance, and then to working for a software consultancy in Montreal that used their own dialect of [Scheme](http://www.jazzscheme.org/). In the mean time, I continued following my interest in game development, particularly [Roguelike](https://en.wikipedia.org/wiki/Roguelike) as they appealed to my aforementioned lack of design skills. My old blog, [Coding Cookies](http://codingcookies.com/), was primarily centered around building a Roguelike in Javascript.
-
-
+Eventually, this led me to the world of freelance, and then to working for a software consultancy in Montreal that used their own dialect of [Scheme](http://www.jazzscheme.org/). In the mean time, I continued following my interest in game development, particularly [roguelikes](https://en.wikipedia.org/wiki/Roguelike) as they appealed to my aforementioned lack of design skills. My old blog, [Coding Cookies](http://codingcookies.com/), was primarily centered around building a Roguelike in Javascript.
 
 When I'm not trying to get computers to work, I enjoy cooking (particularly fermenting projects), pottery (trying to make a plate set for a tasting menu), riding my bike around New York, and [reading](https://www.goodreads.com/user/show/21652187-dominic).
 
