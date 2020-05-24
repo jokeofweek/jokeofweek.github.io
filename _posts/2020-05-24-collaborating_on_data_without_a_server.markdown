@@ -1,8 +1,9 @@
 ---
 layout: post
 title:  "Collaborating on Data Without a Server"
-date:   2020-05-23 19:53:38 +0000
+date:   2020-05-24 01:45:00 -0400
 tags: javascript concepts
+description: Using conflict-free replicated data types to collaborate on data in a peer-to-peer application.
 ---
 
 Recently I was working on a password management application. I had the following goals in mind:
