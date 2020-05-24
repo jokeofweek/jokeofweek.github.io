@@ -136,6 +136,21 @@ a:focus {
   padding: 1em;
 }
 
+article ul,
+article ol {
+  margin-left: 2em;
+}
+
+article ul li {
+  list-style-type: disc;
+  margin-bottom: 0.5em;
+}
+
+article ol li {
+  list-style-type: decimal;
+  margin-bottom: 0.5em;
+}
+
 @media screen and (min-width: 531px) {
   #container {
     box-shadow: 0 1px 3px 0 rgba(60,64,67,0.302), 0 4px 8px 3px rgba(60,64,67,0.149);
