@@ -1,23 +1,10 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <title>{{ page.title }}</title>
+    {% seo %}
     <meta charset="utf-8">
-    <meta name="author" content="Dominic Charley-Roy">
     <meta name="HandheldFriendly" content="true">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta content="{{ site.title }}" property="og:site_name">
-    <meta content="{{ page.title }}" property="og:title">
-    {% if page.description %}
-      <meta content="{{ page.description }}" property="og:description">
-    {% endif %}
-    {% if page.url %}
-      <meta content="{{ site.url }}{{ page.url }}" property="og:url">
-    {% endif %}
-    {% if page.date %}
-      <meta content="{{ page.date | date_to_xmlschema }}" property="article:published_time">
-    {% endif %}
-    <meta content="{{ site.url }}/about/" property="article:author">
     <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
     <link rel="icon" href="/favicon.ico">
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
