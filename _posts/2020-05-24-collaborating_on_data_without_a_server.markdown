@@ -103,7 +103,8 @@ The tweaks we made to our model earlier (immutable entries and uniquely ID'd) ar
  */ 
 function merge(local: Vault, remote: Vault): Vault {
   // Make a copy of the local vault set of entries.
-  const mergedMap = new Map(local.getEntries());
+  const mergedMap = 
+      new Map<string, Entry>(local.getEntries());
 
   for (let [id, entry] of remote.getEntries()) {
     // If the id is not already in our map, then this is a 
