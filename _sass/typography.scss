@@ -79,3 +79,20 @@ article h5:not(:first-child),
 article h6:not(:first-child) {
 	margin-top: 1.2em;
 }
+
+.footnote {
+	font-size: .7em;
+	vertical-align: super;
+}
+
+.footnotes {
+	font-size: 90%;
+}
+
+strong {
+	font-weight: 700;
+} 
+
+em {
+	font-style: italic;
+}
