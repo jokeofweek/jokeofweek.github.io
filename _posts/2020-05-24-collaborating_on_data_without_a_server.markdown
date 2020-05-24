@@ -153,7 +153,7 @@ class Vault {
   // ...
 
   isEntryActive(entry: Entry) {
-    return !!this.tombstones.has(entry);
+    return this.tombstones.has(entry);
   }
 
   removeEntry(entry: Entry) {
