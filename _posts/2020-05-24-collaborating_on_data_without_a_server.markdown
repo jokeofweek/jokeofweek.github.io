@@ -33,7 +33,7 @@ We want to be able to synchronize vaults across devices such that whatever order
 A number of techniques can help us achieve this, and the one I'll be covering today is [conflict-free replicated data types](https://en.wikipedia.org/wiki/Conflict-free_replicated_data_type) (CRDTs). These are data structures which can exist on multiple clients and follow defined rules such that:
 
 1. each client can manipulate its own version (ie. replica) without needing a central server or communication with any other client.
-2. a client is able to synchronize with another client at any point and this will never result in an inconsistenc (eg. client A has a different result than client B) or, worse, a merge conflict (the dreaded `>>>>>`).
+2. a client is able to synchronize with another client at any point and this will never result in an inconsistency (eg. client A has a different result than client B) or, worse, a merge conflict (the dreaded `>>>>>`).
 
 To begin, we'll make a small tweak to our model which will greatly simplify this: make entries immutable and assign them an index based on a [UUID](https://en.wikipedia.org/wiki/Universally_unique_identifier).
 
