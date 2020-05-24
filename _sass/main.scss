@@ -148,8 +148,9 @@ a:focus {
 }
 
 .centered-image {
-  margin: auto;
   display: block;
+  margin: auto;
+  max-width: calc(100% - 2em);
   padding: 1em;
 }
 

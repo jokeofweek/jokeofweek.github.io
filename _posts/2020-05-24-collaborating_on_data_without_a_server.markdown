@@ -88,7 +88,7 @@ function merge(local: Vault, remote: Vault): Vault {
 
 This would be used in the following scenario:
 
-![Image describing two replicas being updated locally and then their clients running merge to synchronize](/assets/images/crdts/merge.png){:class="centered-image"}
+![Image describing two replicas being updated locally and then their clients running merge to synchronize](/assets/images/crdts/merge.svg){:class="centered-image" width="300px"}
 
 The tweaks we made to our model earlier (immutable entries and uniquely ID'd) are critical for implementing this. We know that if the maps both contain an entry with the same index[^1], they must have been previously synchronized (due to the uniqueness of the ID) and the content will not have changed (due to the immutability). The merge operation is actually just a merging of the two maps, with deduplication in place for the entry ID.
 
