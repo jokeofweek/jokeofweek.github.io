@@ -86,8 +86,12 @@ nav a {
 
 footer {
   border-top: 1px solid $separator-color;
-  padding: $section-padding 0;
+  padding-top: $section-padding;
   text-align: center;
+}
+
+footer p {
+  margin-bottom: 0;
 }
 
 #main {
