@@ -105,17 +105,13 @@ footer p {
 pre {
   display: block;
   white-space: pre;
-  margin: 1em 0px;
   overflow-x: auto;
   overflow-y: hidden;
 }
 
 figure.highlight {
   display: block;
-  padding-block-start: 0.25em;
-  padding-block-end: 0.25em;
-  padding-inline-start: 10px;
-  padding-inline-end: 10px;
+  padding: 0.25em;
 }
 
 code.highlighter-rouge {
@@ -186,10 +182,7 @@ article ol li {
   
   figure.highlight {
     display: block;
-    padding-block-start: 1em;
-    padding-block-end: 1em;
-    padding-inline-start: 40px;
-    padding-inline-end: 40px;
+    padding: 1em; 
   }
 
 }
