@@ -20,7 +20,7 @@ Eventually, this led me to the world of freelance, and then to working for a sof
 
 
 
-When I'm not trying to get computers to work, I enjoy cooking (particularly fermenting projects), riding my bike around New York, and [reading](https://www.goodreads.com/user/show/21652187-dominic).
+When I'm not trying to get computers to work, I enjoy cooking (particularly fermenting projects), pottery (trying to make a plate set for a tasting menu), riding my bike around New York, and [reading](https://www.goodreads.com/user/show/21652187-dominic).
 
 ### Reaching Me
 
