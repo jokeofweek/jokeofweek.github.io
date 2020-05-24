@@ -203,7 +203,7 @@ We added the "feature" that deletion was permanent. In practice, we often want t
 Instead, a simple way of solving this is to create a *new* version of the entry (eg. it has its own new ID). 
 
 - If we didn't implement compacting, this is easy enough: look up the deleted item in the entry set and make a new entry with the same values but a new UUID.
-- If we implemented compacting, this is trickier. We need to keep around enough data about the entries to reconstruct them. This starts to hit the limitation of a state-based CRDT. However, an operation-based CRDT can work nicely here! Imagine your two operations are `AddEntry(entry)` and `RemoveEntry(entry)` (these can be made commutative by updating the tombstone set internally even if the entry isn't there yet). We kept the entry data in our `RemoveEntry(entry)` operation and so could undo it by generating `AddEntry(makeWithNewId(removeEntryOperation.entry))`.
+- If we implemented compacting, this is trickier. We need to keep around enough data about the entries to reconstruct them. This starts to hit the limitation of a state-based CRDT. However, an operation-based CRDT can work nicely here! Imagine your two operations are `AddEntry(entry)` and `RemoveEntry(entry)` (these can be made commutative by updating the tombstone set internally even if the entry isn't there yet). We kept the entry data in our `RemoveEntry(entry)` operation and so could undo it by generating an `AddEntry` based on the data attached with the `RemoveEntry`.
 
 ### Footnotes
 
