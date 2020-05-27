@@ -8,7 +8,7 @@ description: Building up to using merkle trees to verify a list of data blocks.
 
 Let's walk through a thought experiment together. As part of your latest sprint, you've been tasked with adding a feature to your product where users can download a set of files (or just data in general). This sounds easy enough. You set up some kind of hosted directory and instantly forget about it, since that implementation isn't relevant to this post.
 
-## Did I get the right data?
+### Did I get the right data?
 
 After a while, a few bug reports start to come in - your application is misbehaving with the downloaded data. You spend a few hours/days/weeks debugging and end up figuring out that the files the users have doesn't match the files you are hosting. Uh oh.
 
