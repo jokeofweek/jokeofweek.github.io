@@ -51,11 +51,11 @@ header {
   padding-bottom: 0.25em;
 }
 
-nav {
+header nav {
   padding: 0.5em 0;
 }
 
-nav a {
+header nav a {
   text-transform: uppercase;
   margin: 0 0.5em;
 }
@@ -86,6 +86,32 @@ nav a {
 
 #separator-swirl {
   width: 50px; 
+}
+
+.post-nav-controls {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.post-nav-controls div {
+  flex: 1 0 auto;
+  max-width: 100%;
+}
+
+.post-nav-controls .previous-link {
+  text-align: left;
+}
+
+.post-nav-controls .next-link {
+  text-align: right;
+}
+
+.post-nav-controls .previous-link a {
+  margin-right: 1em;
+}
+
+.post-nav-controls .next-link a {
+  margin-left: 1em;
 }
 
 footer {
