@@ -16,6 +16,16 @@ This can happen for plenty of reasons. The internet is a wild place. Maybe the u
 
 Luckily, this is a problem we can fix! We can check that the user has the right data as part of our application. A simple way of accomplishing this is using a [checksumming function](https://en.wikipedia.org/wiki/Checksum). This takes an arbitrarily-sized piece of data and distills it into a small string. [Hash functions](https://en.wikipedia.org/wiki/Hash_function) are also related, providing some different properties for cryptopgraphic purposes. Generally, these functions are designed such that similar input data will produce different checksums [^1]. A key aspect is that they should be deterministic: checksumming a given set of data bytes will always produce the same checksum.
 
+{% highlight typescript %}
+function checksum(input: string): string {
+  // Some implementation would go here. You 
+  // could use CRC: https://en.wikipedia.org/wiki/Cyclic_redundancy_check.
+  // 
+  // This could also be a hashing function,
+  // such as MD5 or the SHA family. 
+}
+{% endhighlight %}
+
 Why does this fix our issue? It would be impractical to send over all the bytes the client has downloaded to verify (eg. a second download). Instead, we can now take a large set of data, obtain the checksum (eg. generally < 1 kilobyte), and verify it against our expected checksum. Equipped with a `checksum` function of your choosing, this might look something like:
 
 
@@ -33,7 +43,7 @@ function verifyFiles(
         fileContents.get(fileName);
   }
   
-  return checksum(concatenatedFileContents) == expecedChecksum;
+  return checksum(concatenatedFileContents) == expectedChecksum;
 }
 {% endhighlight %}
 
