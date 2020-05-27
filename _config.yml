@@ -24,7 +24,7 @@ description: >- # this means to ignore newlines until "baseurl:"
   Dominic Charley-Roy's Blog
 baseurl: "" # the subpath of your site, e.g. /blog
 url: "http://jokeofweek.github.io" # the base hostname & protocol for your site, e.g. http://example.com
-github_username:  jekyll
+github_username:  jokeofweek
 
 # Build settings
 theme: minima
@@ -36,7 +36,6 @@ highlighter: rouge
 
 
 permalink: pretty
-
 
 # Exclude from processing.
 # The following items will not be processed, by default.
@@ -64,3 +63,4 @@ defaults:
       path: "" # an empty string here means all files in the project
     values:
       author: "Dominic Charley-Roy"
+
