@@ -85,6 +85,7 @@ header nav a {
 }
 
 #separator-swirl {
+  height: 11.76px;
   width: 50px; 
 }
 
@@ -207,6 +208,8 @@ article ol li {
   }
   
   #separator-swirl {
+    /* Need to explicitly declare both dimensions for IE11. */
+    height: 18.82px;
     width: 80px; 
   }
   
