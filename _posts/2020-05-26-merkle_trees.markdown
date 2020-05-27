@@ -10,11 +10,11 @@ Let's walk through a thought experiment together. As part of your latest sprint,
 
 ### Did I get the right data?
 
-After a while, a few bug reports start to come in - your application is misbehaving with the downloaded data. You spend a few hours/days/weeks debugging and end up figuring out that the files the users have doesn't match the files you are hosting. Uh oh.
+After a while, a few bug reports start to come in - your application is misbehaving with the downloaded data. You spend a few hours/days/weeks debugging and end up figuring out that the files the users have don't match the files you are hosting. Uh oh.
 
 This can happen for plenty of reasons. The internet is a wild place. Maybe the user has a flaky connection, causing some content to be dropped. It could be that the files got overwritten &mdash; we've all accidentally done that when saving a file from the browser. Possibly the user's machine is being tampered with in some way. 
 
-Luckily, this is a problem we can fix! We can check that the user has the right data as part of our application. A simple way of accomplishing this is using a [checksumming function](https://en.wikipedia.org/wiki/Checksum). This takes an arbitrarily-sized piece of data and distills it into a small string. [Hash functions](https://en.wikipedia.org/wiki/Hash_function) are also related, providing some different properties for cryptopgraphic purposes. Generally, these functions are designed such that similar input data will produce different checksums [^1]. A key aspect is that they should be deterministic: checksumming a given set of data bytes will always produce the same checksum.
+Luckily, this is a problem we can fix! We can check that the user has the right data as part of our application. A simple way of accomplishing this is using a [checksumming function](https://en.wikipedia.org/wiki/Checksum). This takes an arbitrarily-sized piece of data and distills it into a small string. [Hash functions](https://en.wikipedia.org/wiki/Hash_function) are also related, providing some different properties for cryptographic purposes. Generally, these functions are designed such that similar input data will produce different checksums [^1]. A key aspect is that they should be deterministic: checksumming the same input will always produce the same checksum.
 
 {% highlight typescript %}
 function checksum(input: string): string {
@@ -26,7 +26,7 @@ function checksum(input: string): string {
 }
 {% endhighlight %}
 
-Why does this fix our issue? It would be impractical to send over all the bytes the client has downloaded to verify (eg. a second download). Instead, we can now take a large set of data, obtain the checksum (eg. generally < 1 kilobyte), and verify it against our expected checksum. Equipped with a `checksum` function of your choosing, this might look something like:
+Why does this fix our issue? It would be impractical to send over all the bytes the client has downloaded to verify (ie. a second download). Instead, we can now take a large set of data, obtain the checksum (generally < 1 kilobyte), and verify it against our expected checksum. Equipped with a `checksum` function of your choosing, this might look something like:
 
 
 {% highlight typescript %}
@@ -38,9 +38,8 @@ function verifyFiles(
   // We sort the file names in alphabetical order and then
   // concatenate their contents.
   const sortedFileNames = Array.from(fileContents.keys()).sort();
-  for (let fileName in sortedFileNames) { 
-    concatenatedFileContents += 
-        fileContents.get(fileName);
+  for (let fileName of sortedFileNames) { 
+    concatenatedFileContents += fileContents.get(fileName);
   }
   
   return checksum(concatenatedFileContents) == expectedChecksum;
@@ -49,8 +48,8 @@ function verifyFiles(
 
 You've solved this new problem statement! Some key aspects to note here:
 
-- Checksumming functions *can* have collisions (ie. two different inputs produce the same checksum). This becomes a game of probabilities &mdash; you need to decide your tolerance for collisions and adjust accordingly. This becomes more problematic as input size increases or output (checksum) size decreases [^2].
-- The checksumming approach for verifying the local file contents must be the same as how the expected checksum was calculated. Things to be aware of here include having checksumming algorithms which are configured differently (maybe the output size is bigger on the local client?) or accumulating a string to checksum in a non-deterministic order (did you append all file contents based on a sorted set of file names?). Backwards compatibility can become *very* tricky here.
+- Checksumming functions *can* have collisions (ie. two different inputs produce the same checksum). This becomes a game of probabilities &mdash; you need to decide on a tolerance for collisions and adjust accordingly. This becomes more problematic as input size increases or output (checksum) size decreases [^2].
+- The checksumming approach for verifying the local file contents must be the same one used to calculate the expected checksum. Things to be aware of here include using checksumming algorithms which are configured differently (maybe the output size is bigger on the local client?) or accumulating a string to checksum in a non-deterministic order (did you append all file contents based on a sorted set of file names?). Backwards compatibility can become *very* tricky here.
 
 ### Which file is wrong? 
  
@@ -63,7 +62,7 @@ We fixed the overall problem of verification with our previous patch, but the us
 
 Let's take a look at the function we conjured together. Previously, our method was to concatenate all the files together into one giant string, produce a checksum, and then compare it. What if we were to instead keep a per-file checksum? This would let us answer the question on a per-file basis and also help us identify which files are missing. 
 
-Taking this one step further - we can even keep concatenate all these file-specific checksums and produce a new checksum!  This lets us answer the overall question of "are all my files valid" quickly, and if the answer is no, we can then dig into the various checksums to find the root issues. Because of the properties of these functions, if one file is wrong, then the file-specific checksum will mismatch and consequently so will the concatenated checksum derived from it.
+Taking this one step further - we can even keep concatenate all these file-specific checksums and produce a new checksum!  This lets us answer the overall question of "are all my files valid" quickly, and if the answer is no, we can then dig into the various checksums to find the root cause. Because of the properties of these functions, if one file is wrong, then its file-specific checksum will mismatch and consequently so will the concatenated checksum derived from it.
 
 Turns out this concept already exists: [hash lists](https://en.wikipedia.org/wiki/Hash_list). You might implement something like this:
 
@@ -95,7 +94,7 @@ class ChecksumList {
 }
 {% endhighlight %}
 
-This object is very powerful! We can provide the expected checksum list to our application via any mechanism we want and then compare the computed concatenated checksum and file-specific checksum to figure out what is wrong. 
+This class is very powerful and easy to serialize! We can provide the expected checksum list to our application via any mechanism we want and then compare the computed concatenated checksum and file-specific checksum to figure out what is wrong. 
 
 ### Building blocks
 
@@ -103,7 +102,7 @@ At some point, you start to realize that our data structure can be more abstract
 
 A better user experience is to segment our data into roughly equal-sized data blocks. This requires minimal modification to our above structure: chiefly, the indexing scheme for the fine-grained mapping of checksums. While we were previously using the filename, now you'll need to consider a different approach.
 
-Note that there is a trade-off here between the size of the data block, the size of the output checksums, and the size of our overall structure. All affect each other and you'll need to consider these carefully.
+We do need to be careful here as the size of the data block and the size of the output checksums can affect storage size and performance characteristics. If you use blocks that are too big or a checksum size that is too small, you will increase the likelihood of collisions. Conversely, if you use blocks that are too small or a checksum size that is too big, you begin to lose the benefits of hashing as the metadata for your structure grows in size relative to data block size.
 
 ### Venturing into the (Merkle) trees
 
@@ -127,7 +126,7 @@ So say you wanted to verify content for the third leaf (which should have checks
 
 ![Image describing a Merkle tree with the nodes pruned along the paths which are not needed.](/assets/images/merkle/pruned.svg){:class="centered-image" width="300px"}
 
-While this may seem like a small victory in this example, consider the benefits at scale. The nodes `C1` and `C2` could potentially be entire subtrees eliminated from calculation. 
+While this may seem like a small victory in this example, consider the benefits at scale. Since we had stored the result of computing `C5` when we first built the Merkle tree, we now can just use that checksum directly. We no longer need to consider the `C1` and `C2` nodes (which could actually be large subtrees) as part of our verification.
 
 To summarize, Merkle trees allow you to download just a partial set of the files and still perform verification as if you had the entire data set by requiring only a small number of related checksums.
 
@@ -140,23 +139,15 @@ It turns out I'm not just showing you these structures because I find them reall
 Merkle trees actually form the foundation for many large-scale projects. 
 
 - If you've ever used the BitTorrent protocol (or a number of other file-sharing protocols such as Gnutella), you've used a form of these trees under the hood for data verification. 
-- If you've ever used Git or Mercurial for your version control, these used Merkle trees for organizing your stored code/commits, providing those useful SHA-1 hashes you love typing.
-- If you've ever dabbled in cryptocurrency or used a blockchain, these leverage Merkle trees to allow verifying that you're up to date on the transactions which have been processed without having to download all the transaction content.
+- If you've ever used Git or Mercurial for your version control, these use Merkle trees for organizing your stored code/commits, providing those useful SHA-1 hashes you love typing.
+- If you've ever dabbled in cryptocurrency or used a blockchain, these leverage Merkle trees to verify that you're up to date on the transactions which have been processed without having to download all the transaction content.
 
-### Aside: Trust no one?
+### Credits
 
-I alluded to the idea of trust and data tampering earlier when I mentioned a user's data may have been maliciously tampered with (providing a motivation for our verification).
-
-The logical next question is: what happens if our checksums are tampered with to make the verification pass on tampered data?
-
-By construction, it turns out that we only need a trusted source for our top-level checksum (called the *Merkle root* for Merkle trees). This is true for all our structures in this post. The top-level checksum acts as a summary of all the underlying content as it is computed from the content checksums. Even if the user were to receive tampered checksums for the inner paths within the Merkle tree, the tampered content wouldn't correctly compute to the top-level checksum.
-
-So if your context requires trust, assuming you are using hashing functions which offer the correct safety guarantees, you only need to be able to transmit your top-level checksum in a trusted manner. 
-
-This actually has an interesting property: if you can provide your top-level checksum in a trusted manner, you can then decentralize the rest of the inner checksums. This is a key aspect to many of the aforementioned protocols, which all work in a peer-to-peer decentralized context.
+Thank you to [Matt Wetmore](http://mattwetmore.me/) and [David Kua](http://kua.io/) for editing this post.
 
 ### Footnotes
 
-[^1]: Checksumming and hashing functions can offer a wide variety of properties and configurable setting depending on your needs. Minimizing collisions is a good goal - generally this is achieved by having larger output checksums, but this begins to be a tradeoff for storage space.
+[^1]: Checksumming and hashing functions can offer a wide variety of properties and configurable settings depending on your needs. Minimizing collisions is a good goal - generally this is achieved by having larger output checksums, but this begins to be a tradeoff for storage space.
 [^2]: The [pigeonhole principle](https://en.wikipedia.org/wiki/Pigeonhole_principle) describes this well. The degree to which this impacts you also depends on the function of your choosing: some guarantee that each outputs are uniformly distributed (ie. each checksum has roughly the same number of inputs which produce it within a certain space), some don't.
 [^3]: By using a tree structure (and assuming that your tree is balanced), the operation of verifying a checksum goes from being linear (relative to the number of tree nodes) to logarithmic (as you only need to check the path). 
