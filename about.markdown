@@ -22,7 +22,7 @@ When I'm not trying to get computers to work, I enjoy cooking (particularly ferm
 
 ### Reaching Me
 
-I love hearing from people. You can reach me at {{ site.email }}.
+I love hearing from people. You can reach me at [{{ site.email }}](mailto:{{ site.email }}).
 
 ### Disclaimer
 
