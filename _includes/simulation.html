@@ -1,0 +1,168 @@
+<p>Delivery delay - number of days for order to arrive</p>
+
+<input type="radio" id="delivery-delay-1" name="delivery-delay" value="1"><label for="delivery-delay-1">1</label>
+<input type="radio" id="delivery-delay-2" name="delivery-delay" value="2"><label for="delivery-delay-2">2</label>
+<input type="radio" id="delivery-delay-3" name="delivery-delay" value="3" checked><label for="delivery-delay-3">3</label>
+<input type="radio" id="delivery-delay-4" name="delivery-delay" value="4"><label for="delivery-delay-4">4</label>
+<input type="radio" id="delivery-delay-5" name="delivery-delay" value="5"><label for="delivery-delay-5">5</label>
+
+<p>Perception delay - number of days to average when determining perceived sales</p>
+
+<input type="radio" id="perception-delay-1" name="perception-delay" value="1"><label for="perception-delay-1">1</label>
+<input type="radio" id="perception-delay-2" name="perception-delay" value="2"><label for="perception-delay-2">2</label>
+<input type="radio" id="perception-delay-3" name="perception-delay" value="3" checked><label for="perception-delay-3">3</label>
+<input type="radio" id="perception-delay-4" name="perception-delay" value="4"><label for="perception-delay-4">4</label>
+<input type="radio" id="perception-delay-5" name="perception-delay" value="5"><label for="perception-delay-5">5</label>
+
+<p>Response delay - number of days over which we want to split discrepancy adjustments</p>
+
+<input type="radio" id="response-delay-1" name="response-delay" value="1"><label for="response-delay-1">1</label>
+<input type="radio" id="response-delay-2" name="response-delay" value="2"><label for="response-delay-2">2</label>
+<input type="radio" id="response-delay-3" name="response-delay" value="3" checked><label for="response-delay-3">3</label>
+<input type="radio" id="response-delay-4" name="response-delay" value="4"><label for="response-delay-4">4</label>
+<input type="radio" id="response-delay-5" name="response-delay" value="5"><label for="response-delay-5">5</label>
+
+<p>Demand changes - comma-separated list of values letting you define how demand changes. Expected format: <code>day,demand,day,demand,day,demand</code>. As an example: starting with demand 20, then on day 50 increasing to 22, then on day 100 increasing to 25 would be: <code>0,20,50,22,100,25.</code>. Make sure you put your days in sorted order - I didn't put too much effort into this.</p>
+<input type="text" id="demand-changes" name="demand-changes" value="0,20,25,22"/>
+
+<button id="start">Start simulation</button> <button id="stop">Stop</button>
+
+<canvas id="graph" width="400" height="600" style="border: 1px solid black; display: block; margin: auto;"></canvas>
+
+<script>
+function getDemand(day, demandVals) {
+  for (let i = demandVals.length - 2; i >= 0; i -= 2) {
+    if (day >= demandVals[i]) {
+      return demandVals[i + 1];
+    }
+  }
+}
+
+const fps = 10;
+function rateLimiter(fn) {
+	let lastExecution = 0;
+  return function(time) {
+  	if (time - lastExecution >= (1000 / fps)) {
+    	lastExecution = time;
+      fn();
+    }
+  };
+}
+
+function* generateSystem(perceptionDelay, responseDelay, deliveryDelay, demandVals) {
+  // The initial stock.
+  let inventory = 200;
+  // Order placed on day [index].
+  let orders = [];
+  // Actual sales on day [index].
+  let sales = [];
+  
+	for (let day = 0; day < Infinity; day++) {
+		// This is our inflow.
+  	let deliveries;
+    // We order 20 cars a day on the first 5 days, and then after that use 
+    // the delivery system.
+    if (day < 5) {
+    	deliveries = 20;
+    } else {
+    	// This models the delivery delay.
+    	deliveries = orders[day - deliveryDelay];
+    }
+  
+  	// This is our outflow for the day.
+    let demand = getDemand(day, demandVals)
+    sales.push(demand);
+    
+    // Now we decide how many orders to place for the day. We do this
+    // by averaging the sales for the last x days, where x is our
+    // perception delay.
+    //
+    // Calling slice with a negative index gives you the last x 
+    // elements.
+    let eligibleSales = sales.slice(-perceptionDelay);
+    let perceivedSales = 
+      eligibleSales.reduce((sum, val) => val += sum) / 
+      		eligibleSales.length;
+          
+    // Our goal is to have enough inventory for the next 10 days
+    // worth of sales.
+    let desiredInventory = perceivedSales * 10;
+   	let discrepancy = desiredInventory - inventory;
+    
+    let order = Math.max(
+    		Math.round(perceivedSales + discrepancy / responseDelay),
+        0);
+    orders.push(order);
+   
+    // Update our stock and return the value for plotting.
+    inventory = inventory + deliveries - demand;
+    yield inventory;
+  }
+}
+
+let request;
+let system;
+
+function drawFrame(time) {
+  innerDrawFrame(time);
+	request = requestAnimationFrame(drawFrame);
+}
+
+const innerDrawFrame = rateLimiter(() => {
+  values.push(system.next().value);
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  ctx.beginPath();
+  ctx.moveTo(30, 0);
+  ctx.lineTo(30, canvas.height);
+  ctx.stroke();
+
+  // Draw ticks
+  ctx.font = '12px sans-serif';
+  for (let i = 0; i < 12; i++) { 
+  ctx.fillText(i * 50, 3, canvas.height - i * 50 + 6);
+  }
+
+  const lastValues = values.slice(-35);
+  for (let i = 0; i < lastValues.length; i++) {
+    ctx.moveTo(30 + i * 10, canvas.height - lastValues[i]);
+    ctx.lineTo(30 + (i + 1) * 10, canvas.height - lastValues[i + 1]);
+  	ctx.stroke()	
+  }
+});
+
+
+const canvas = document.getElementById('graph');
+const ctx = canvas.getContext('2d');
+
+document.getElementById('stop').addEventListener('click', () => {
+  window.cancelAnimationFrame(request);
+  delete values;
+  delete system;
+})
+
+document.getElementById('start').addEventListener('click', () => {
+  const perceptionDelay = parseInt(document.querySelector('input[name="perception-delay"]:checked').value)
+  const responseDelay = parseInt(document.querySelector('input[name="response-delay"]:checked').value)
+  const deliveryDelay = parseInt(document.querySelector('input[name="delivery-delay"]:checked').value)
+
+  const demandVals = document.getElementById('demand-changes').value.split(',').map(x => parseInt(x,10));
+  
+  if (demandVals.length % 2 == 1 || demandVals.some(x => isNaN(x))) {
+    alert('Something is wrong with your demand changes format :(')
+    return;
+  }
+
+  if (demandVals[0] != 0) {
+    alert('Your first demand change pair should be at day 0.');
+    return;
+  }
+
+  values = [];
+  system = generateSystem(perceptionDelay, responseDelay, deliveryDelay, demandVals);
+  request = requestAnimationFrame(drawFrame);
+})
+
+let values = [];
+
+
+</script>>
