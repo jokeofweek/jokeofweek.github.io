@@ -124,7 +124,7 @@ function getDemand(day) {
 
 ### Simulation
 
-Here is the end result of the simulation, where we see how stock changes over time. Play around with the variables - see what you find. I really enjoyed just seeing how whacky this could get. 
+Here is the end result of the simulation, where we see how stock changes over time. Play around with the variables - see what you find. I really enjoyed just seeing how wacky this could get. 
 
 {% include simulation.html %}
 
