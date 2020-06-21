@@ -93,7 +93,7 @@ function* generateSystem(perceptionDelay, responseDelay, deliveryDelay) {
     // Our goal is to have enough inventory for the next 10 days
     // worth of sales.
     let desiredInventory = perceivedSales * 10;
-     let discrepancy = desiredInventory - inventory;
+    let discrepancy = desiredInventory - inventory;
     
     // Our order includes the perceived sales and also tries to fix
     // the discrepancy.
