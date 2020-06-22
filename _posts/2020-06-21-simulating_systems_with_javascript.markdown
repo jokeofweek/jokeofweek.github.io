@@ -13,7 +13,7 @@ In order to try and wrap my head around the book content, I thought it would be 
 
 ### Our Example System
 
-The exampe we will be modelling involves a car dealership, which has a certain number of cars available on its lot, and its reaction over time to customer demand. We can order more cars to our lot. We want to avoid having too many unsold cars on the old (real estate is expensive!) while also ensuring we always have cars to sell. We'll be looking at how our system evolves using *days* as the time unit.  
+The example we will be modelling involves a car dealership, which has a certain number of cars available on its lot, and its reaction over time to customer demand. We can order more cars to our lot. We want to avoid having too many unsold cars on the old (real estate is expensive!) while also ensuring we always have cars to sell. We'll be looking at how our system evolves using *days* as the time unit.  
 
 As an arbitrary goal, we want to always have enough inventory on hand for **10 days of sales**.
 
