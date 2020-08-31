@@ -59,7 +59,7 @@ Time continues flowing. Our remaining clients have now heard both announcements 
 
 With this application, we can now share our content peer-to-peer without needing to remain connected the entire time! Others can take up part of the sharing work.
 
-### Big Files Slow Connections
+### Big Files, Slow Connections
 
 The application is working well! Our organizers are slowly getting all of the generated media. Key word being *slowly*. You've gotten a few reports now that users will occasionally get stuck waiting ages for some of the larger files (RAW images are quite large after all). Not everyone in our swarm has fast internet connections, so the experience can be sub-optimal if you end up requesting a small file from a fast client and a large file from a slow client.
 
