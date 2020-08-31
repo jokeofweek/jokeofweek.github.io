@@ -15,7 +15,7 @@ Upfront warning: there will be a decent amount of hand-waving around the actual 
 
 We just finished running an event. Awesome. Maybe it was a conference, an unconference, or somewhere in the middle. It went well and we're feeling real proud of ourselves. This was also the first year we had talk transcripts as well as a professional photographer. We want to share this content with our organizers! There's one issue though... the organizers are located all over the world!
 
-There's plenty of options here &mdash; you could share a BigCloudProvider Folder™... maybe run an FTP server... what about physically mailing USB sticks to everyone? All very plausible options. But you're hesitating. That sounds like a lot of work for you, whether it be paying money for the storage, making sure a device stays plugged in 24/7, or licking tons of envelopes. 
+There's plenty of options here &mdash; you could share a SomeCorpCloudService™ Folder... maybe run an FTP server... what about physically mailing USB sticks to everyone? All very plausible options. But you're hesitating. That sounds like a lot of work for you, whether it be paying money for the storage, making sure a device stays plugged in 24/7, or licking tons of envelopes. 
 
 What if there was a way your organizers could help forward along the content to other organizers? Maybe some kind of organizer-to-organizer protocol... 🤔
 
@@ -74,7 +74,7 @@ Your application now conceptually splits up each file into **pieces**. Each piec
 1. We can tell the entire swarm which __pieces__ we have already downloaded. 
 2. We can send/receive a __piece__ for a given connection.
 
-Pickign the piece size actually has an important trade off. As piece size decreases, there are more announces and more file send/receive connections. If your piece size is too low (or too high!), the protocol loses efficiency.
+Picking the piece size actually has an important trade off. As piece size decreases, there are more announces and more file send/receive connections. If your piece size is too low (or too high!), the protocol loses efficiency.
 
 ### Growing the Swarm
 
