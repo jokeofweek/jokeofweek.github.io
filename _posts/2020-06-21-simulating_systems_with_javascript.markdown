@@ -137,7 +137,3 @@ As I initially stated, this is a very simple model. The book touches on how mode
 ### Footnotes
 
 [^1]: This is just one kind of loop, and can be a balancing loop or a feedback loop. The book covers this in much greater detail. An example to think here involves a thermostat. The stock in this scenario is the room temperature. An in-flow would be heat controlled by a thermostat. The thermostat may turn itself on/off based on the room temperature (ie. the flow reacts to the stock).
-
-
-
-The scenario we will be modelling here involves a car dealership trying to understand consumer demand and 
