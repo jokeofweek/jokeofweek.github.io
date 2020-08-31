@@ -1,6 +1,6 @@
 ---
 layout: post
-title:  "Sharing Files With Peers (You Could've Invented BitTorrent)"
+title:  "Sharing Files (You Could've Invented BitTorrent)"
 date:   2020-08-30 12:00:00 -0400
 tags: concepts 
 description: Developing a Peer to Peer file sharing protocol.
