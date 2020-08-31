@@ -3,7 +3,7 @@ layout: post
 title:  "Sharing Files (You Could've Invented BitTorrent)"
 date:   2020-08-30 12:00:00 -0400
 tags: concepts 
-description: How to share files with friends (and re-build BitTorrent from scratch in the process).
+description: How to share files with friends and re-build BitTorrent from scratch in the process.
 ---
 The decentralized nature of the Internet and the ability to self-host content has always been appealing to me. 
 
