@@ -30,8 +30,8 @@ So we develop a simple application. The application will keep track of which fil
 
 These connections then support the following operations:
 
-1. We can tell the entire swarm which files we have already downloaded. We could do this when we first connect to the swarm, when others connect to the swarm, or when our set of downloaded files changes.
-2. We can send/receive a file for a given connection.
+1. We can announce to the entire swarm which files we have already downloaded. We would do this when we first connect to the swarm, when others connect to the swarm, or when our set of downloaded files changes.
+2. We can connect to a specific client to send or receive a file.
 
 The process of sharing works by having a client *A* check which files it is missing, waiting for another client (*B*) to announce it has the file, and then communicating with client *B* to receive the file. Then client *A* would announce that it now has this file for anyone else who might need it. This lets content propagate through our swarm without always needing to get the files from the same person! That way we are not stuck content-less just because client *B* decided to go to bed early.
 
