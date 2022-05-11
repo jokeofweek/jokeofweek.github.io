@@ -27,8 +27,8 @@ html {
 
 #container {
   background-color: white;
-  min-height: 100%;
-  width: calc(100% - ($section-padding * 2));
+  min-height: calc(100% - (#{$page-padding} * 2));
+  width: calc(100% - (#{$section-padding} * 2));
   padding: $page-padding;
 }
 
