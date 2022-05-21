@@ -22,10 +22,9 @@ When I'm not trying to get computers to work, I enjoy cooking (particularly ferm
 
 ### Reaching Me
 
-I love hearing from people. You can reach me at:
+I love hearing from people. 
 
-* dominic.charley.roy [@] gmail.com
-* [twitter](https://twitter.com/jokeofweek)
+You can reach me at dominic.charley.roy [@] gmail [.] com
 
 ### Disclaimer
 
