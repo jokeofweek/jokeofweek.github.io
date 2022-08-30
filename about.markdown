@@ -18,7 +18,7 @@ I currently help build the SDKs at [Stripe](https://stripe.com/). In the past, I
 
 I really enjoy [roguelikes](https://en.wikipedia.org/wiki/Roguelike) and wrote [a number of blog posts](http://www.codingcookies.com/2013/11/25/building-a-roguelike-in-javascript-part-16/) focused on building a Roguelike in Javascript.
 
-When I'm not trying to get computers to work, I enjoy cooking (particularly fermenting projects), pottery, riding my bike around New York, and [reading](https://www.goodreads.com/user/show/21652187-dominic).
+When I'm not trying to get computers to work, I enjoy cooking (particularly fermentation projects), pottery, riding my bike around New York, and [reading](https://www.goodreads.com/user/show/21652187-dominic).
 
 ### Reaching Me
 
